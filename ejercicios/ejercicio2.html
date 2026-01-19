@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+</head>
+<body>
+    <h1>Ejercicio 2</h1>
+    <p id="ejercicio2"></p>
+</body>
+<script>
+    fetch("https://apis.datos.gob.ar/georef/api/provincias")
+        .then(resp => resp.json())
+            .then(datos => {
+                let objeto = {};
+                for (let datos_provincias of datos["provincias"]) {
+                    const nombre = datos_provincias["nombre"];
+                    const id = datos_provincias["id"];
+                    const centroide = datos_provincias["centroide"];
+                    objeto[nombre] = [id,centroide];
+                }
+                document.getElementById("ejercicio2").textContent = JSON.stringify(objeto);
+            })
+</script>
+</html>

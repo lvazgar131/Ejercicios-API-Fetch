@@ -7,9 +7,35 @@
 </head>
 <body>
     <h1>Ejercicio 4</h1>
-    <p id="ejercicio4"></p>
+    <form action="" method="post" id="formulario_texto">
+        <label> Ingrese el id del usuario
+            <input type="number" maxlength="10" id="input_num">
+        </label>
+        <button type="button" id="boton_id" 
+        value="Pulsar">Pulsar</button> <br>
+        <span id="datos_id"></span>
+
+    </form>
+
 </body>
 <script>
-    
+    const user_id =document.getElementById("input_num");
+    const datos_id = document.getElementById("datos_id");
+    const boton = document.getElementById("boton_id");
+
+
+    boton.addEventListener('click',() => {
+        const id_user = user_id.valueAsNumber;
+        const url = `https://jsonplaceholder.typicode.com/users?id=${id_user}`;
+        fetch(url)
+        .then(resp => {
+            if(!resp.ok) throw new Error(`Error en HTTP! Estado actual: ${resp.status}.`);
+            return resp.json();
+        })
+            .then(data => {
+                datos_id.textContent = JSON.stringify(data);
+            })
+            .catch(error => console.error("Error con el formato",error));
+    });
 </script>
 </html>

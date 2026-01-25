@@ -1,49 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejercicio 6</title>
     <style>
-        #envio{
-            background-color: aqua;
-            border: 2px solid aquamarine;
-            color: white;
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
         }
     </style>
 </head>
 <body>
-    <form method="post">
-        <label>Descripción del artículo <br>
-            <input type="text" id="descripcion">
-        </label>
 
-        <label> Precio <br>
-            <input type="number" id="precio">
-        </label>
-        <button type="button" id="envio" >Nuevo artículo</button>
-    </form>
+<h2>Ejercicio 6</h2>
 
-    <table id="tabla">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</body>
+<label>Descripción del artículo</label><br>
+<input type="text" id="descripcion"><br><br>
+
+<label>Precio</label><br>
+<input type="number" id="precio"><br><br>
+
+<button id="btnAgregar">Nuevo artículo</button>
+
+<table id="tabla">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
 <script>
-    const ejercicio6 = document.getElementById("ejercicio6");
-    const descripcion = document.getElementById("descripcion");
-    const precio = document.getElementById("precio");
-    const boton = document.getElementById("envio");
+const articulos = []; // JSON vacío
 
-    boton.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-    })
+const tbody = document.querySelector("#tabla tbody");
+const btn = document.getElementById("btnAgregar");
+
+function pintarTabla() {
+    tbody.innerHTML = "";
+    articulos.forEach(articulo => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${articulo.codigo}</td>
+                <td>${articulo.descripcion}</td>
+                <td>${articulo.precio}</td>
+            </tr>
+        `;
+    });
+}
+
+btn.addEventListener("click", () => {
+    const descripcion = document.getElementById("descripcion").value;
+    const precio = document.getElementById("precio").value;
+
+    if (descripcion === "" || precio === "") {
+        alert("Completa todos los campos");
+        return;
+    }
+
+    const nuevoArticulo = {
+        codigo: articulos.length + 1, // autoincremental
+        descripcion: descripcion,
+        precio: precio
+    };
+
+    articulos.push(nuevoArticulo);
+    pintarTabla();
+
+    document.getElementById("descripcion").value = "";
+    document.getElementById("precio").value = "";
+});
 </script>
+
+</body>
 </html>

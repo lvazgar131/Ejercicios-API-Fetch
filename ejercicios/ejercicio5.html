@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5</title>
+</head>
+<body>
+    <h1>Ejercicio 5</h1>
+    <p id="ejercicio5"></p>
+</body>
+<script>
+    const ejercicio5 = document.getElementById("ejercicio5");
+    fetch("https://randomuser.me/api/")
+    .then(resp => resp.json())
+        .then(data => {
+            const usuario = data["results"][0];
+            const p_nombre = usuario["name"]["first"];
+            const s_nombre = usuario["name"]["last"];
+            const genero = usuario["gender"];
+            let imagen_url;
+            if (genero === "male"){
+                imagen_url = "../male.png";
+            }
+            else {
+                imagen_url = "../female.png";
+            };
+
+            fetch(imagen_url)
+            .then(resp => resp.blob())
+                .then(blob => {
+                    const imagen = document.createElement("img");
+                    imagen.src = URL.createObjectURL(blob);
+                    imagen.width = 150;
+                    ejercicio5.textContent = `Primer nombre: ${p_nombre}, Segundo nombre: ${s_nombre}.`;
+                    ejercicio5.appendChild(imagen);
+                })
+                .catch(error => `Error: ${error}`);
+        });
+</script>
+</html>

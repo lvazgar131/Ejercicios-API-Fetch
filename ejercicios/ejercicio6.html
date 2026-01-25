@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #envio{
+            background-color: aqua;
+            border: 2px solid aquamarine;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <label>Descripción del artículo <br>
+            <input type="text" id="descripcion">
+        </label>
+
+        <label> Precio <br>
+            <input type="number" id="precio">
+        </label>
+        <button type="button" id="envio" >Nuevo artículo</button>
+    </form>
+
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script>
+    const ejercicio6 = document.getElementById("ejercicio6");
+    const descripcion = document.getElementById("descripcion");
+    const precio = document.getElementById("precio");
+    const boton = document.getElementById("envio");
+
+    boton.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+    })
+</script>
+</html>

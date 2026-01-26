@@ -13,16 +13,12 @@
     fetch("https://freegeoip.app/json/")
         .then(resp => resp.json())
             .then(datos => {
-                const lista_completa = [];
                 let nombre_pais = datos["country_name"];
                 let ciudad = datos["city"];
                 let c_postal = datos["zip_code"];
                 let ip = datos["ip"];
-                lista_completa.push(nombre_pais);
-                lista_completa.push(ciudad);
-                lista_completa.push(c_postal);
-                lista_completa.push(ip);
-                document.getElementById("ejercicio3").textContent = JSON.stringify(lista_completa);
+                const lista_completa = [nombre_pais, ciudad,c_postal,ip];
+                document.getElementById("ejercicio3").textContent = lista_completa;
             }) 
         .catch(error => console.error("Error al obtener los datos",error));
 </script>

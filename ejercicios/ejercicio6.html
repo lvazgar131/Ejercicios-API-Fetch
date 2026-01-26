@@ -2,87 +2,127 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 6</title>
     <style>
-        table {
+        body{
+            background-color: antiquewhite;
+        }
+
+        table{
             border-collapse: collapse;
             margin-top: 20px;
             width: 60%;
         }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
+
+        #borrar_todo {
+            border: 2px black solid;
+            color: black;
+            background-color: red;
         }
-        th {
+
+        #envio_boton {
+            border: 2px black solid;
+            background-color: aqua;
+            color: black;
+        }
+
+        th,td {
+            border: 2px solid #ccc;
+        }
+
+        th{
             background-color: #eee;
         }
+
+        table  tbody tr:nth-child(even){
+            background-color: #eee;
+        }
+
     </style>
 </head>
 <body>
+    
+    <form method="post">
+        <h1>Ejercicio 6</h1>
+        <label>Descripción del producto <br>
+            <input type="text" id="descripcion">
+        </label>
+        <br> <br>
+        <label>Precio <br>
+            <input type="number" id="precio">
+        </label> <br> <br>
+        <button id="envio_boton">Nuevo artículo</button>
+        <button id="borrar_todo">Borrar todo</button>
+    </form>
 
-<h2>Ejercicio 6</h2>
-
-<label>Descripción del artículo</label><br>
-<input type="text" id="descripcion"><br><br>
-
-<label>Precio</label><br>
-<input type="number" id="precio"><br><br>
-
-<button id="btnAgregar">Nuevo artículo</button>
-
-<table id="tabla">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-<script>
-const articulos = []; // JSON vacío
-
-const tbody = document.querySelector("#tabla tbody");
-const btn = document.getElementById("btnAgregar");
-
-function pintarTabla() {
-    tbody.innerHTML = "";
-    articulos.forEach(articulo => {
-        tbody.innerHTML += `
+    <table id="tabla">
+        <thead>
             <tr>
-                <td>${articulo.codigo}</td>
-                <td>${articulo.descripcion}</td>
-                <td>${articulo.precio}</td>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Precio</th>
             </tr>
-        `;
-    });
-}
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script>
+    const articulos = [];
 
-btn.addEventListener("click", () => {
-    const descripcion = document.getElementById("descripcion").value;
-    const precio = document.getElementById("precio").value;
-
-    if (descripcion === "" || precio === "") {
-        alert("Completa todos los campos");
-        return;
-    }
-
-    const nuevoArticulo = {
-        codigo: articulos.length + 1, // autoincremental
-        descripcion: descripcion,
-        precio: precio
+    const body_tabla = document.querySelector("#tabla tbody");
+    const boton = document.getElementById("envio_boton");
+    const boton_borrar = document.getElementById("borrar_todo");
+    
+    function rellenar_tabla(){
+        body_tabla.innerHTML = "";
+        articulos.forEach(articulo => {
+            body_tabla.innerHTML += `
+            <tr>
+                <td>${articulo["codigo"]}</td>
+                <td>${articulo["descripcion"]}</td>
+                <td>${articulo["precio"]}</td>
+            </tr>
+            `
+        });
     };
 
-    articulos.push(nuevoArticulo);
-    pintarTabla();
+    function vaciar_tabla(){
+        body_tabla.innerHTML = "";
+        articulos.length = 0;
+    };
 
-    document.getElementById("descripcion").value = "";
-    document.getElementById("precio").value = "";
-});
+    boton.addEventListener('click',(e) => {
+        e.preventDefault();
+        const descripcion = document.getElementById("descripcion");
+        const precio = document.getElementById("precio");
+
+        if (descripcion.value.trim() === "" || precio.value.trim() === "") {
+            alert ("Complete todos los campos antes de intentar enviar.");
+            return;
+        };
+        const nuevoArticulo = {
+            codigo: articulos.length + 1,
+            descripcion: descripcion.value,
+            precio: precio.value
+        };
+        
+
+        articulos.push(nuevoArticulo);
+        rellenar_tabla();
+
+        document.getElementById("descripcion").value = "";
+        document.getElementById("precio").value = "";
+    })
+
+    boton_borrar.addEventListener('click',(e) => {
+        e.preventDefault();
+        alert("La tabla se vaciará...");
+        setTimeout(() => {
+            console.log("Borrando datos...")
+        },3000);
+        vaciar_tabla();
+    })
+
 </script>
-
-</body>
 </html>

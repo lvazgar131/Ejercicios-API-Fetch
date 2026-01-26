@@ -32,7 +32,7 @@
                     const imagen = document.createElement("img");
                     imagen.src = URL.createObjectURL(blob);
                     imagen.width = 150;
-                    ejercicio5.textContent = `Primer nombre: ${p_nombre}, Segundo nombre: ${s_nombre}.`;
+                    ejercicio5.innerHTML = `Primer nombre: ${p_nombre}, Segundo nombre: ${s_nombre}. <br>`;
                     ejercicio5.appendChild(imagen);
                 })
                 .catch(error => `Error: ${error}`);
